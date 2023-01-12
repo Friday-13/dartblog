@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest
 
 def index(request: HttpRequest):
-    return HttpResponse('<h1> Привет, мир! </h1>')
+    return render(request, 'blog/index.html')

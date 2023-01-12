@@ -1,7 +1,12 @@
 # Introduction
 
 The goal of this project is creation simple blog site.
-Project is writen with django3, python3.11, poetry.
+Project is writen with
+- Django v3
+- python v3.11
+- poetry
+- [Dart blog-template](https://www.free-css.com/free-css-templates/page247/dart-blog)
+
 
 *place for photo*
 
@@ -29,6 +34,11 @@ $ poetry install
 $ cd siteblog
 $ python manage.py makemigrations
 $ python manage.py migrate
+```
+
+5. Collect static
+```
+$ python manage.py collectstatic
 ```
 
 # Usage
