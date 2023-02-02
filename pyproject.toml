@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 django = "^4.1.4"
 pillow = "^9.4.0"
+django-ckeditor = "^6.5.1"
 
 
 [tool.poetry.group.dev.dependencies]
