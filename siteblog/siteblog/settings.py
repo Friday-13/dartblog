@@ -185,6 +185,8 @@ CKEDITOR_CONFIGS = {
         'tabSpaces': 4,
         'extraPlugins': ','.join([
             'uploadimage', # the upload image feature
+            'image',
+            # 'image2',
             # your extra plugins here
             'div',
             'autolink',
