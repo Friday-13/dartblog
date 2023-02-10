@@ -11,7 +11,7 @@ class Home(ListView):
     paginate_by = 8
 
 
-class PostByCategory(ListView):
+class PostsByCategory(ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'posts'
@@ -36,8 +36,7 @@ class SinglePost(DetailView):
         context['title'] = self.object.title
         return context
 
-
-class PostByTag(ListView):
+class PostsByTag(ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'posts'
