@@ -644,6 +644,7 @@ section.blog-post-area h4 span.author-name {
     float: left;
     height: 72px;
     width: 72px;
+    object-fit: cover;
 }
 .single-blog-area .grid .portfolio-item .portfolio-text {
     margin-left: 110px;

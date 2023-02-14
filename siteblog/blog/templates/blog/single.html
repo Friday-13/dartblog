@@ -4,6 +4,7 @@
 {%endblock%} 
 {%block content%}
 {%load static%}
+{%load filtered_post%}
 
 <section class="single-blog-area">
   <div class="container">
@@ -200,112 +201,13 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="button-group filters-button-group">
-              <button data-filter=".recent" class="button is-checked">
-                Recent
-              </button>
-              <button data-filter=".popular" class="button">popular</button>
-              <button data-filter=".users" class="button">Users</button>
-            </div>
-
-            <div class="grid" style="position: relative; height: 1221.93px">
-              <div
-                class="portfolio-item recent"
-                style="position: absolute; left: 0px; top: 0px"
-              >
-                <img src="{%static 'img/portfolio1.jpg'%}" alt="" />
-                <div class="portfolio-text">
-                  <h5>
-                    <a href="#"
-                      >Pay Close Attention To People Who Don’t Clap When You Win
-                      recent1.</a
-                    >
-                  </h5>
-                  <p>By Kabbo Liate <span>|</span>25 February 2017</p>
-                </div>
-              </div>
-              <div
-                class="portfolio-item recent"
-                style="position: absolute; left: 0px; top: 114px"
-              >
-                <img src="{% static 'img/portfolio2.jpg'%}" alt="" />
-                <div class="portfolio-text">
-                  <h5>
-                    <a href="#"
-                      >Pay Close Attention To People Who Don’t Clap When You Win
-                      recent2.</a
-                    >
-                  </h5>
-                  <p>By Kabbo Liate <span>|</span>25 February 2017</p>
-                </div>
-              </div>
-              <div
-                class="portfolio-item popular"
-                style="position: absolute; left: 0px; top: 228px"
-              >
-                <img src="{%static 'img/portfolio3.jpg'%}" alt="" />
-                <div class="portfolio-text">
-                  <h5>
-                    <a href="#"
-                      >Pay Close Attention To People Who Don’t Clap When You Win
-                      popular1.</a
-                    >
-                  </h5>
-                  <p>By Kabbo Liate <span>|</span>25 February 2017</p>
-                </div>
-              </div>
-              <div
-                class="portfolio-item popular"
-                style="position: absolute; left: 0px; top: 342px"
-              >
-                <img src="{% static 'img/portfolio4.jpg'%}" alt="" />
-                <div class="portfolio-text">
-                  <h5>
-                    <a href="#"
-                      >Pay Close Attention To People Who Don’t Clap When You Win
-                      popular2.</a
-                    >
-                  </h5>
-                  <p>By Kabbo Liate <span>|</span>25 February 2017</p>
-                </div>
-              </div>
-              <div
-                class="portfolio-item users"
-                style="position: absolute; left: 0px; top: 456px"
-              >
-                <img src="{% static 'img/portfolio5.jpg'%}" alt="" />
-                <div class="portfolio-text">
-                  <h5>
-                    <a href="#"
-                      >Pay Close Attention To People Who Don’t Clap When You Win
-                      users1.</a
-                    >
-                  </h5>
-                  <p>By Kabbo Liate <span>|</span>25 February 2017</p>
-                </div>
-              </div>
-              <div
-                class="portfolio-item users"
-                style="position: absolute; left: 0px; top: 570px"
-              >
-                <img src="{%static 'img/portfolio1.jpg'%}" alt="" />
-                <div class="portfolio-text">
-                  <h5>
-                    <a href="#"
-                      >Pay Close Attention To People Who Don’t Clap When You Win
-                      users2.</a
-                    >
-                  </h5>
-                  <p>By Kabbo Liate <span>|</span>25 February 2017</p>
-                </div>
-              </div>
-            </div>
+            {%  actual_posts_tpl post.category %}
             <div class="sidebar-ads">
               <img src="{%static 'img/sidebar-ads.jpg'%}" alt="" />
               <p>
                 Place For Your <br />
                 Ad Banner
-              </p>
+              </p>`
             </div>
             <div class="tags">
               <h2 class="sidebar-title">Tags</h2>
@@ -347,5 +249,6 @@
       </div>
     </div>
   </div>
+
 </section>
 {%endblock%}
