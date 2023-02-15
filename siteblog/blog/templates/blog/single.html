@@ -2,9 +2,9 @@
 {%block title%} 
 {{ block.super }} :: {{ title }}
 {%endblock%} 
-{%block content%}
-{%load static%}
-{%load filtered_post%}
+{%block content%} 
+{%load static%} 
+{%load filtered_post%} 
 {%load tag_cloud%}
 
 <section class="single-blog-area">
@@ -30,7 +30,7 @@
                   </p>
                 </div>
                 <div class=""></div>
-                {%tags_for_post post 'post tags'%} 
+                {%tags_for_post post 'post tags'%}
               </div>
               <div class="ads-area">
                 <img src="{%static 'img/ads.jpg'%}" alt="" />
@@ -197,15 +197,22 @@
             </div>
           </div>
           <div class="col-md-4">
-            {%  actual_posts_tpl post.category %}
+            <div class="inputsearch">
+              <h2 class="sidebar-title">Search by title</h2>
+              <form action="{% url 'search' %}" method="get">
+                <input type="text" name="s" id="" placeholder="Search..." />
+                <input type="submit" value="Search" />
+              </form>
+            </div>
+            {% actual_posts_tpl post.category %}
             <div class="sidebar-ads">
               <img src="{%static 'img/sidebar-ads.jpg'%}" alt="" />
               <p>
                 Place For Your <br />
                 Ad Banner
-              </p>`
+              </p>
             </div>
-            {%tag_list%} 
+            {%tag_list%}
             <div class="newsletter">
               <h2 class="sidebar-title">Subscribe To oUR nEWSLETTER</h2>
               <form action="#" method="post">
@@ -218,6 +225,5 @@
       </div>
     </div>
   </div>
-
 </section>
 {%endblock%}

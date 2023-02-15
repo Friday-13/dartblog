@@ -55,7 +55,20 @@ class PostsByTag(ListView):
     def get_queryset(self):
         return self.model.objects.filter(tags__slug=self.kwargs['slug'])
 
+class SearchByTitle(ListView):
+    model = Post
+    template_name = 'blog/search_result.html'
+    context_object_name = 'posts'
+    paginate_by = 8
+
+    def get_queryset(self):
+        return self.model.objects.filter(title__icontains=self.request.GET.get('s'))
     
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['search_by_title'] = f"s={self.request.GET.get('s')}&" 
+        context['title'] = 'Search'
+        return context
 
 def index(request: HttpRequest):
     return render(request, 'blog/index.html')

@@ -751,3 +751,24 @@ section.blog-post-area h4 span.author-name {
     font-size: 15px;
     font-weight: 500;
 }
+.single-blog-area .inputsearch form {
+    margin: 30px 0 0;
+}
+.single-blog-area .inputsearch input[type="text"] {
+    width: 60%;
+    margin-right: 20px;
+}
+.single-blog-area .inputsearch input[type="submit"] {
+    width: 30%;
+    background: #40c4ff;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: Geometria;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+
+.border-top {
+    border-top: 1px solid #40c4ff;
+}
