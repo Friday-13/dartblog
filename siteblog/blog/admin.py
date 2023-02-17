@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.db.models import Q
 from .models import *
 from django import forms
 from django.utils.safestring import mark_safe
@@ -15,9 +16,25 @@ class TagAdmin(admin.ModelAdmin):
 
 class PostAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorUploadingWidget(), label='Содержание')
+
+    def clean_pinned_post(self):
+        """
+        Category should have only one pinned post.
+        If Category already has pinned post it would be set False
+        """
+        current_category = self.cleaned_data['category']
+        old_pinned_post = Post.objects.filter(Q(category=current_category)&
+                                              Q(pinned_post=True))
+        if (old_pinned_post.exists()):
+            for post in old_pinned_post:
+                post.pinned_post = False
+                post.save()
+        return self.cleaned_data["pinned_post"]
+
     class Meta:
         model = Post
         fields = '__all__'
+
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -32,8 +49,9 @@ class PostAdmin(admin.ModelAdmin):
     save_as = True
     save_on_top = True
     prepopulated_fields = {'slug':('title',)}
-    fields = ('title', 'slug', 'photo', 'get_cover', 'content', 'author',
-              'category', 'tags', 'created_at', 'views', )
+    fields = ('title', 'slug', 'is_published', 'photo', 'get_cover', 'content', 
+              'author', 'category', 'pinned_post',
+              'tags', 'created_at', 'views', )
     readonly_fields = ('views', 'get_cover', 'created_at',)
     form = PostAdminForm
 
@@ -51,7 +69,6 @@ class PostAdmin(admin.ModelAdmin):
 
     get_cover.short_description = 'Обложка'
     get_miniature.short_description = 'Миниатюра'
-
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)

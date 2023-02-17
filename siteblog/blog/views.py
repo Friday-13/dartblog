@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpRequest
 from django.views.generic import DetailView, ListView
 from .models import Post, Tag, Category
-from django.db.models import F
+from django.db.models import F, Q
 
 class Home(ListView):
     model = Post
@@ -21,6 +21,13 @@ class PostsByCategory(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(**kwargs)
         context['title'] = Category.objects.get(slug=self.kwargs['slug'])
+        pinned_post = Post.objects.filter(Q(category__slug=self.kwargs['slug']) &
+                                                  Q(pinned_post=True))
+        if pinned_post.exists():
+            context['pinned_post'] = pinned_post[0]
+        else:
+            context['pinned_post'] = Post.objects.filter(
+                    category__slug=self.kwargs['slug']).latest('created_at')
         return context
     
     def get_queryset(self):
