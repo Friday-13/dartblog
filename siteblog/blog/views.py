@@ -8,19 +8,31 @@ class Home(ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'posts'
-    extra_context = {'title': 'Home'}
     paginate_by = 8
-
+    
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['title'] = 'Home'
+        '''
+        Get latest post as pinned
+        '''
+        context['pinned_post'] = Post.objects.all().latest('created_at')
+        return context
 
 class PostsByCategory(ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'posts'
     paginate_by = 8
+    allow_empty = False
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context=super().get_context_data(**kwargs)
+        context=super().get_context_data(object_list=object_list, **kwargs)
         context['title'] = Category.objects.get(slug=self.kwargs['slug'])
+        '''
+        Get pinned_post for category. 
+        If pinned doesn't exist, get latest post as pinned
+        '''
         pinned_post = Post.objects.filter(Q(category__slug=self.kwargs['slug']) &
                                                   Q(pinned_post=True))
         if pinned_post.exists():
@@ -55,7 +67,7 @@ class PostsByTag(ListView):
     paginate_by = 8
     
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = super().get_context_data(object_list=object_list, **kwargs)
         context['title'] = Tag.objects.get(slug=self.kwargs['slug']).title
         return context
     
@@ -77,11 +89,3 @@ class SearchByTitle(ListView):
         context['title'] = 'Search'
         return context
 
-def index(request: HttpRequest):
-    return render(request, 'blog/index.html')
-
-def get_category(request: HttpRequest, slug: str):
-    return render(request, 'blog/index.html')
-
-def get_post(request: HttpRequest, slug: str):
-    return render(request, 'blog/index.html')
