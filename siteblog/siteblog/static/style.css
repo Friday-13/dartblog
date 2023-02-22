@@ -86,7 +86,9 @@
 
 .wrapper section.bg-text-area .bg-text {
     background-image: url(img/bg-iamges.jpg);
-    background-size: 100% 100%;
+    background-size: cover;
+    /*height: 600px;*/
+    background-position: center;
     padding: 205px 280px;
 }
 

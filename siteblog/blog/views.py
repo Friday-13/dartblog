@@ -12,7 +12,7 @@ class Home(ListView):
     
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
-        context['title'] = 'Home'
+        context['title'] = 'Main Page'
         '''
         Get latest post as pinned
         '''
@@ -28,7 +28,8 @@ class PostsByCategory(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(object_list=object_list, **kwargs)
-        context['title'] = Category.objects.get(slug=self.kwargs['slug'])
+        context['category'] = Category.objects.get(slug=self.kwargs['slug'])
+        context['title'] = context['category'].title
         '''
         Get pinned_post for category. 
         If pinned doesn't exist, get latest post as pinned

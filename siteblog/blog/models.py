@@ -1,5 +1,6 @@
 from enum import unique
 from django.db import models
+from django.db.models.fields import CharField
 from django.urls import reverse
 
 '''
@@ -20,9 +21,17 @@ class Category(models.Model):
     One post can be belong to only one category
     title - title of category
     slug - url of category
+    photo - background image of cetegory
+    tagline - short tagline for category: quote, though - anything
+    short_description - short text with description of category
     '''
     title = models.CharField(max_length=255, verbose_name='Название')
     slug = models.SlugField(max_length=255, verbose_name='Url', unique=True)
+    photo = models.ImageField(upload_to='backgrounds/%Y/%m/%d/', blank=True,
+                              verbose_name='Фон')
+    tagline = models.CharField(max_length=100, blank=True, verbose_name='Слоган')
+    short_description = models.TextField(blank=True, verbose_name='Описание')
+    
 
     def __str__(self):
         return self.title
