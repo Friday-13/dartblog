@@ -1,10 +1,10 @@
-{%extends 'base.html'%} 
-{%block title%} 
+{%extends 'base.html'%}
+{%block title%}
 {{ block.super }} :: {{ title }}
-{%endblock%} 
-{%block content%} 
-{%load static%} 
-{%load filtered_post%} 
+{%endblock%}
+{%block content%}
+{%load static%}
+{%load filtered_post%}
 {%load tag_cloud%}
 
 <section class="single-blog-area">
@@ -16,20 +16,16 @@
             <div class="blog-area">
               <div class="blog-area-part">
                 <h4>
-                  <a href="{{ post.category.get_absolute_url }}"
-                    >> {{ post.category }}</a
-                  >
+                  <a href="{{ post.category.get_absolute_url }}">> {{ post.category }}</a>
                 </h4>
                 <h2>{{post.title}}</h2>
                 <div class="for-style">
                   <p>
-                    <span class="drop_caps">
-                      {{post.content|striptags|first}}
-                    </span>
                     {{post.content|safe}}
                   </p>
                 </div>
-                <div class=""></div>
+
+                <img src="{{ post.photo.url }}" alt="">
                 {%tags_for_post post 'post tags'%}
               </div>
               <div class="ads-area">
@@ -59,21 +55,8 @@
                         </div>
                         <div class="reply">
                           <p>
-                            <span
-                              ><a href="#"
-                                ><i
-                                  class="fa fa-thumbs-up"
-                                  aria-hidden="true"
-                                ></i></a
-                              >12</span
-                            ><span
-                              ><a href="#"
-                                ><i
-                                  class="fa fa-reply"
-                                  aria-hidden="true"
-                                ></i></a
-                              >7</span
-                            >
+                            <span><a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>12</span><span><a
+                                href="#"><i class="fa fa-reply" aria-hidden="true"></i></a>7</span>
                           </p>
                         </div>
                       </section>
@@ -99,21 +82,9 @@
                             </div>
                             <div class="reply">
                               <p>
-                                <span
-                                  ><a href="#"
-                                    ><i
-                                      class="fa fa-thumbs-up"
-                                      aria-hidden="true"
-                                    ></i></a
-                                  >12</span
-                                ><span
-                                  ><a href="#"
-                                    ><i
-                                      class="fa fa-reply"
-                                      aria-hidden="true"
-                                    ></i></a
-                                  >7</span
-                                >
+                                <span><a href="#"><i class="fa fa-thumbs-up"
+                                      aria-hidden="true"></i></a>12</span><span><a href="#"><i class="fa fa-reply"
+                                      aria-hidden="true"></i></a>7</span>
                               </p>
                             </div>
                           </section>
@@ -140,21 +111,8 @@
                         </div>
                         <div class="reply">
                           <p>
-                            <span
-                              ><a href="#"
-                                ><i
-                                  class="fa fa-thumbs-up"
-                                  aria-hidden="true"
-                                ></i></a
-                              >12</span
-                            ><span
-                              ><a href="#"
-                                ><i
-                                  class="fa fa-reply"
-                                  aria-hidden="true"
-                                ></i></a
-                              >7</span
-                            >
+                            <span><a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>12</span><span><a
+                                href="#"><i class="fa fa-reply" aria-hidden="true"></i></a>7</span>
                           </p>
                         </div>
                       </section>
@@ -164,31 +122,13 @@
               </div>
               <form action="#" method="get">
                 <div class="name">
-                  <input
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Name"
-                    class="name"
-                  />
+                  <input type="text" name="" id="" placeholder="Name" class="name" />
                 </div>
                 <div class="email">
-                  <input
-                    type="email"
-                    name=""
-                    id=""
-                    placeholder="Email"
-                    class="email"
-                  />
+                  <input type="email" name="" id="" placeholder="Email" class="email" />
                 </div>
                 <div class="comment">
-                  <input
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Comment"
-                    class="comment"
-                  />
+                  <input type="text" name="" id="" placeholder="Comment" class="comment" />
                 </div>
                 <div class="post">
                   <input type="submit" value="Post" />
