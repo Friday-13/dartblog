@@ -1,7 +1,7 @@
 from enum import unique
 from django.db import models
-from django.db.models.fields import CharField
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 '''
 Models fields list
@@ -103,3 +103,33 @@ class Post(models.Model):
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
         ordering = ['-created_at']
+
+class Profile(models.Model):
+    '''
+    user - link to standard User model
+    photo - profile photo of user
+    subscribed - if user subscribed to news
+    '''
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to='users_photo/%Y/%m/%d/', blank=True, verbose_name='Фото')
+    is_subscribed = models.BooleanField(default=True, verbose_name='В рассылке')
+
+class Comment(models.Model):
+    '''
+    post - link to Post model. Post for this comment
+    user - comment author
+    body - text of comment
+    created_at - time and date of creation
+    active - allow to show the comment
+    '''
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    body = models.TextField(blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'Comment {self.body}\n Author {self.user}'
