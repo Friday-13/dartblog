@@ -1,7 +1,12 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import render
 from django.http import HttpRequest
+from django.urls import reverse
 from django.views.generic import DetailView, ListView
+from django.views.generic.edit import FormMixin
+from django.contrib import messages
 from .models import Comment, Post, Tag, Category
+from .forms import CommentForm
 from django.db.models import F, Q
 
 class Home(ListView):
@@ -47,13 +52,15 @@ class PostsByCategory(ListView):
         return self.model.objects.filter(category__slug=self.kwargs['slug'])
 
 
-class SinglePost(DetailView):
+class SinglePost(FormMixin, DetailView):
     model = Post
+    form_class = CommentForm
     template_name = 'blog/single.html'
     context_object_name = 'post'
+    slug_field = 'slug'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, *, form=None, object_list=None, **kwargs):
+        context=super().get_context_data(object_list=object_list, **kwargs)
         context['title'] = self.object.title
         # Update views counter
         self.object.views = F('views') + 1
@@ -62,8 +69,35 @@ class SinglePost(DetailView):
 
         # Get comments
         context['comments'] = Comment.objects.all()
+        
+        if form is None:
+            context['form'] = CommentForm(self.get_form())
+        else:
+            context['form'] = form
+        print(form)
         return context
 
+    def get_success_url(self):
+        return reverse('post', kwargs={'slug': self.object.slug})
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden()
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        new_comment = form.save(commit=False)
+        new_comment.post = self.get_object()
+        new_comment.user = self.request.user
+        new_comment.save()
+         
+        return super().form_valid(form)
 
 class PostsByTag(ListView):
     model = Post
