@@ -132,5 +132,4 @@ class Comment(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f'Comment {self.body}\n Author {self.user}'
-        # return f'Comment {self.body}\n '
+        return f'Comment {self.body} Author {self.user}'

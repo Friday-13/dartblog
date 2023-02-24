@@ -1,15 +1,14 @@
 import re
-from django.forms import ModelForm, Textarea, ValidationError
+from django.forms import ModelForm, Textarea, ValidationError, TextInput, CharField
 from .models import Comment
 
 
 class CommentForm(ModelForm):
+    body = CharField(
+            label="",
+            widget=TextInput(attrs={"class":"comment", "placeholder": "Comment"})
+            )
     class Meta:
         model = Comment
         fields = ['body',]
 
-    def clean_body(self):
-        body = self.cleaned_data['body']
-        if re.match(r'\d', body):
-            raise ValidationError('не с цифры!')
-        return body

@@ -85,8 +85,9 @@ class UserAdmin(BaseUserAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('post', 'user', 'created_at', 'active',)
     list_filter = ('post', 'user', 'created_at')
-    actions = ['approve_comment',]
+    actions = ['approve_comments',]
 
+    @admin.action(description='Mark selected comments as active')
     def approve_comments(self, request, queryset):
         queryset.update(active=True)
 

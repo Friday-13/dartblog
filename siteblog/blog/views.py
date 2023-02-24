@@ -68,13 +68,7 @@ class SinglePost(FormMixin, DetailView):
         self.object.refresh_from_db()
 
         # Get comments
-        context['comments'] = Comment.objects.all()
-        
-        if form is None:
-            context['form'] = CommentForm(self.get_form())
-        else:
-            context['form'] = form
-        print(form)
+        context['comments'] = Comment.objects.filter(Q(post=self.object) & Q(active=True))
         return context
 
     def get_success_url(self):
