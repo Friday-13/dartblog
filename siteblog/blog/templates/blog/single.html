@@ -36,88 +36,88 @@
                 <h3>Comments</h3>
 
                 <ul class="commentlist">
-                  <li>
-                    <article class="comment">
-                      <header class="comment-author">
-                        <img src="{%static 'img/author-1.jpg'%}" alt="" />
-                      </header>
-                      <section class="comment-details">
-                        <div class="author-name">
-                          <h5><a href="#">Selina Gomez</a></h5>
-                          <p>February 25 2017</p>
-                        </div>
-                        <div class="comment-body">
-                          <p>
-                            is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's
-                            standard
-                          </p>
-                        </div>
-                        <div class="reply">
-                          <p>
-                            <span><a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>12</span><span><a
-                                href="#"><i class="fa fa-reply" aria-hidden="true"></i></a>7</span>
-                          </p>
-                        </div>
-                      </section>
-                    </article>
+                  <!--<li>-->
+                    <!--<article class="comment">-->
+                      <!--<header class="comment-author">-->
+                        <!--<img src="{%static 'img/author-1.jpg'%}" alt="" />-->
+                      <!--</header>-->
+                      <!--<section class="comment-details">-->
+                        <!--<div class="author-name">-->
+                          <!--<h5><a href="#">Selina Gomez</a></h5>-->
+                          <!--<p>February 25 2017</p>-->
+                        <!--</div>-->
+                        <!--<div class="comment-body">-->
+                          <!--<p>-->
+                            <!--is simply dummy text of the printing and typesetting-->
+                            <!--industry. Lorem Ipsum has been the industry's-->
+                            <!--standard-->
+                          <!--</p>-->
+                        <!--</div>-->
+                        <!--<div class="reply">-->
+                          <!--<p>-->
+                            <!--<span><a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>12</span><span><a-->
+                                <!--href="#"><i class="fa fa-reply" aria-hidden="true"></i></a>7</span>-->
+                          <!--</p>-->
+                        <!--</div>-->
+                      <!--</section>-->
+                    <!--</article>-->
 
-                    <ul class="children">
-                      <li>
-                        <article class="comment">
-                          <header class="comment-author">
-                            <img src="{%static 'img/author-2.jpg'%}" alt="" />
-                          </header>
-                          <section class="comment-details">
-                            <div class="author-name">
-                              <h5><a href="#">Khalid Hasan Zibon</a></h5>
-                              <p>February 25 2017</p>
-                            </div>
-                            <div class="comment-body">
-                              <p>
-                                is simply dummy text of the printing and
-                                typesetting industry. Lorem Ipsum has been the
-                                industry's standard
-                              </p>
-                            </div>
-                            <div class="reply">
-                              <p>
-                                <span><a href="#"><i class="fa fa-thumbs-up"
-                                      aria-hidden="true"></i></a>12</span><span><a href="#"><i class="fa fa-reply"
-                                      aria-hidden="true"></i></a>7</span>
-                              </p>
-                            </div>
-                          </section>
-                        </article>
-                      </li>
-                    </ul>
-                  </li>
+                    <!--<ul class="children">-->
+                      <!--<li>-->
+                        <!--<article class="comment">-->
+                          <!--<header class="comment-author">-->
+                            <!--<img src="{%static 'img/author-2.jpg'%}" alt="" />-->
+                          <!--</header>-->
+                          <!--<section class="comment-details">-->
+                            <!--<div class="author-name">-->
+                              <!--<h5><a href="#">Khalid Hasan Zibon</a></h5>-->
+                              <!--<p>February 25 2017</p>-->
+                            <!--</div>-->
+                            <!--<div class="comment-body">-->
+                              <!--<p>-->
+                                <!--is simply dummy text of the printing and-->
+                                <!--typesetting industry. Lorem Ipsum has been the-->
+                                <!--industry's standard-->
+                              <!--</p>-->
+                            <!--</div>-->
+                            <!--<div class="reply">-->
+                              <!--<p>-->
+                                <!--<span><a href="#"><i class="fa fa-thumbs-up"-->
+                                      <!--aria-hidden="true"></i></a>12</span><span><a href="#"><i class="fa fa-reply"-->
+                                      <!--aria-hidden="true"></i></a>7</span>-->
+                              <!--</p>-->
+                            <!--</div>-->
+                          <!--</section>-->
+                        <!--</article>-->
+                      <!--</li>-->
+                    <!--</ul>-->
+                  <!--</li>-->
+                  {%for comment in comments%}
                   <li>
                     <article class="comment">
                       <header class="comment-author">
-                        <img src="{%static 'img/author-3.jpg'%}" alt="" />
+                        <img src="{{comment.user.profile.photo.url}}" alt="" style="object-fit: cover; width: 55px; height: 55px; border-radius: 50%" />
                       </header>
                       <section class="comment-details">
                         <div class="author-name">
-                          <h5><a href="#">Heath Ledger</a></h5>
-                          <p>February 25 2017</p>
+                          <h5><a>{{comment.user}}</a></h5>
+                          <p>{{ comment.created_at|date:"f d.m.Y" }}</p>
                         </div>
                         <div class="comment-body">
                           <p>
-                            is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's
-                            standard
+                            {{comment.body}}
                           </p>
                         </div>
-                        <div class="reply">
-                          <p>
-                            <span><a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>12</span><span><a
-                                href="#"><i class="fa fa-reply" aria-hidden="true"></i></a>7</span>
-                          </p>
-                        </div>
+                        <!--<div class="reply">-->
+                          <!--<p>-->
+                            <!--<span><a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>12</span><span><a-->
+                                <!--href="#"><i class="fa fa-reply" aria-hidden="true"></i></a>7</span>-->
+                          <!--</p>-->
+                        <!--</div>-->
                       </section>
                     </article>
                   </li>
+                  {%endfor%}
                 </ul>
               </div>
               <form action="#" method="get">

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpRequest
 from django.views.generic import DetailView, ListView
-from .models import Post, Tag, Category
+from .models import Comment, Post, Tag, Category
 from django.db.models import F, Q
 
 class Home(ListView):
@@ -55,9 +55,13 @@ class SinglePost(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = self.object.title
+        # Update views counter
         self.object.views = F('views') + 1
         self.object.save()
         self.object.refresh_from_db()
+
+        # Get comments
+        context['comments'] = Comment.objects.all()
         return context
 
 
@@ -74,6 +78,7 @@ class PostsByTag(ListView):
     
     def get_queryset(self):
         return self.model.objects.filter(tags__slug=self.kwargs['slug'])
+
 
 class SearchByTitle(ListView):
     model = Post
