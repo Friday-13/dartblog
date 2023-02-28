@@ -774,3 +774,17 @@ section.blog-post-area h4 span.author-name {
 .border-top {
     border-top: 1px solid #40c4ff;
 }
+
+.single-blog-area .button-register .button{
+    border: 1px solid;
+    border-radius: 5px;
+    background: #40c4ff;
+    color: #fff;
+    font-family: Geometria;
+    font-size: 15px;
+    font-weight: 500;
+    margin-right: 20px;
+    padding: 12px;
+    text-transform: uppercase;
+    width: 33%;
+}

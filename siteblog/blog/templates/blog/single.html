@@ -12,12 +12,12 @@
     <div class="row">
       <div class="col-md-12">
         <div class="border-top">
+          <h4>
+            <a href="{{ post.category.get_absolute_url }}">> {{ post.category }}</a>
+          </h4>
           <div class="col-md-8">
             <div class="blog-area">
               <div class="blog-area-part">
-                <h4>
-                  <a href="{{ post.category.get_absolute_url }}">> {{ post.category }}</a>
-                </h4>
                 <h2>{{post.title}}</h2>
                 <div class="for-style">
                   <p>
@@ -59,19 +59,33 @@
                   {%endfor%}
                 </ul>
               </div>
+              {% if request.user.is_authenticated %}
               <form method="post">
                 {% csrf_token %}
                 {{form.body.errors}}
                 <div class="comment">
-                {{ form.body }}
+                  {{ form.body }}
                 </div>
                 <div class="post">
                   <input type="submit" value="Post" />
                 </div>
               </form>
+              {% endif %}
             </div>
           </div>
           <div class="col-md-4">
+            {% if request.user.is_authenticated %}
+            <h2 class="sidebar-title">Nice to see you, {{request.user.username}}!</h2>
+            <div class='button-register'>
+              <button type="button" class="button">Sing out</button>
+            </div>
+            {% else %}
+            <h2 class="sidebar-title">Login to comment</h2>
+            <div class='button-register'>
+              <button type="button" class="button">Register</button>
+              <button type="button" class="button">Log In</button>
+            </div>
+            {% endif %}
             <div class="inputsearch">
               <h2 class="sidebar-title">Search by title</h2>
               <form action="{% url 'search' %}" method="get">
