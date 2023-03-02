@@ -573,7 +573,8 @@ section.blog-post-area h4 span.author-name {
 .single-blog-area .commententries ul li {
     list-style: none
 }
-.commententries .comment-author {
+.commententries .comment-author img{
+    object-fit: cover;
     border-radius: 50%;
     float: left;
     height: 55px;
@@ -787,4 +788,18 @@ section.blog-post-area h4 span.author-name {
     padding: 12px;
     text-transform: uppercase;
     width: 33%;
+}
+
+
+.single-blog-area .login form {
+    margin: 30px 0 0;
+}
+.single-blog-area .login input[type="submit"] {
+    width: 30%;
+    background: #40c4ff;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: Geometria;
+    font-size: 15px;
+    font-weight: 500;
 }

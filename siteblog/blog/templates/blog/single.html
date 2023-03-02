@@ -40,8 +40,11 @@
                   <li>
                     <article class="comment">
                       <header class="comment-author">
-                        <img src="{{comment.user.profile.photo.url}}" alt=""
-                          style="object-fit: cover; width: 55px; height: 55px; border-radius: 50%" />
+                        {% if comment.user.profile.photo %}
+                        <img src="{{comment.user.profile.photo.url}}" alt="" class='comment-author' />
+                        {% else %}
+                        <img src="{% static 'img/default_avatar.jpg' %}" alt="" class='comment-author' />
+                        {% endif %}
                       </header>
                       <section class="comment-details">
                         <div class="author-name">
@@ -76,14 +79,23 @@
           <div class="col-md-4">
             {% if request.user.is_authenticated %}
             <h2 class="sidebar-title">Nice to see you, {{request.user.username}}!</h2>
-            <div class='button-register'>
-              <button type="button" class="button">Sing out</button>
+            <div class='login'>
+              <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <!--<button type="button" class="button" >Sing out</button>-->
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <input type="submit" value="Log out" />
+              </form>
             </div>
             {% else %}
             <h2 class="sidebar-title">Login to comment</h2>
-            <div class='button-register'>
-              <button type="button" class="button">Register</button>
-              <button type="button" class="button">Log In</button>
+            <div class='login'>
+              <form action="{% url 'login' %}" method="get" style='display:inline'>
+                <input type="submit" name='register' value="Log in" />
+              </form>
+              <form action="{% url 'register' %}" method="get" style="display: inline">
+                <input type="submit" name='register' value="Register" />
+              </form>
             </div>
             {% endif %}
             <div class="inputsearch">

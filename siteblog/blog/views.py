@@ -1,13 +1,15 @@
-from django.http import HttpResponseForbidden
-from django.shortcuts import render
+from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponse, HttpResponseForbidden
+from django.shortcuts import HttpResponseRedirect, redirect, render
 from django.http import HttpRequest
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormMixin
 from django.contrib import messages
 from .models import Comment, Post, Tag, Category
-from .forms import CommentForm
+from .forms import CommentForm, UserLoginForm, UserRegisterForm
 from django.db.models import F, Q
+from django.contrib.auth import login, logout
 
 class Home(ListView):
     model = Post
@@ -123,3 +125,29 @@ class SearchByTitle(ListView):
         context['title'] = 'Search'
         return context
 
+
+def user_logout(request: HttpRequest):
+    logout(request)
+    return HttpResponseRedirect(request.POST.get('next', '/'))
+
+
+def user_login(request: HttpRequest):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserLoginForm()
+    return render(request, 'blog/login.html', {'form': form})
+
+def user_register(request: HttpRequest):
+    if request.method == 'POST':
+        form = UserRegisterForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'blog/register.html', {'form': form})
