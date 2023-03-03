@@ -16,6 +16,7 @@ class Home(ListView):
     template_name = 'blog/index.html'
     context_object_name = 'posts'
     paginate_by = 8
+    allow_empty = False
     
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
@@ -100,7 +101,8 @@ class PostsByTag(ListView):
     template_name = 'blog/index.html'
     context_object_name = 'posts'
     paginate_by = 8
-    
+    allow_empty = False
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
         context['title'] = Tag.objects.get(slug=self.kwargs['slug']).title

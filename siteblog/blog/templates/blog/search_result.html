@@ -38,6 +38,9 @@
           {% if forloop.counter0 == 3 or forloop.counter0 == 7 or forloop.last%}
         </div>
         {% endif %}
+        {% empty %}
+        <h3 style="margin-bottom: 800px">Nothing found for your request</h3>
+
         {% endfor %}
       </div>
     </div>
