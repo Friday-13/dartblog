@@ -142,7 +142,7 @@ def user_login(request: HttpRequest):
             return redirect('home')
     else:
         form = UserLoginForm()
-    return render(request, 'blog/login.html', {'form': form})
+    return render(request, 'blog/login.html', {'form': form, 'title': 'Login'})
 
 def user_register(request: HttpRequest):
     if request.method == 'POST':
@@ -152,4 +152,4 @@ def user_register(request: HttpRequest):
             return redirect('home')
     else:
         form = UserRegisterForm()
-    return render(request, 'blog/register.html', {'form': form})
+    return render(request, 'blog/register.html', {'form': form, 'title': 'Register', 'formtitle': 'Register form'})

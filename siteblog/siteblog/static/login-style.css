@@ -1,0 +1,116 @@
+@font-face {
+  font-family: Geometria;
+  src: url(geometria_font/Geometria.ttf);
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Geometria;
+  src: url(geometria_font/Geometria-Bold.ttf);
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: Geometria;
+  src: url(geometria_font/Geometria-ExtraBold.ttf);
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: Geometria;
+  src: url(geometria_font/geometria-light.ttf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Geometria;
+  src: url(geometria_font/geometria-medium.ttf);
+  font-weight: 500;
+}
+
+#body {
+  font-family: "Geometria";
+  background-color: #5d8fc9;
+}
+#login-card {
+  width: 350px;
+  border-radius: 10px;
+  margin: 150px auto;
+}
+
+#email {
+  border-radius: 5px;
+  background-color: field;
+  border: 1px solid #e6e6e6;
+  color: #000;
+  margin: 0;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+
+#username {
+  border-radius: 5px;
+  background-color: field;
+  border: 1px solid #e6e6e6;
+  color: #000;
+  margin: 0;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+#password {
+  border-radius: 5px;
+  background-color: field;
+  border: 1px solid #e6e6e6;
+  color: #000;
+  margin: 0;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+#button {
+  border-radius: 5px;
+  background-color: #40c4ff;
+  border-color: #40c4ff;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+#checkbox {
+  border-radius: 5px;
+  background-color: #40c4ff;
+  border-color: #40c4ff;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  text-transform: uppercase;
+  accent-color: #40c4ff;
+}
+#btn {
+  position: absolute;
+  bottom: -35px;
+  padding: 5px;
+  margin: 0px 55px;
+  align-items: center;
+  border-radius: 5px;
+}
+
+#container {
+  margin-top: 25px;
+}
+
+.btn-circle.btn-sm {
+  width: 40px;
+  height: 40px;
+  padding: 2px 0px;
+  border-radius: 25px;
+  font-size: 14px;
+  text-align: center;
+  margin: 8px;
+}

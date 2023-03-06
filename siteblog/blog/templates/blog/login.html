@@ -1,29 +1,15 @@
-{% extends 'base.html' %}
-{% block title %}
-{{ block.super }} :: {{ title }}
-{%endblock %}
-{% block content %}
+{% extends 'base_login.html' %}
 {% load static %}
-<section class="single-blog-area" style="margin-top: 0px">
-  <div class="container">
-    <div class="border-top">
-      <div class="bg-text">
-        <h2>Login form</h2>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <form method="post">
-            {% csrf_token %}
-            {{form.body.errors}}
-            {{ form.as_p }}
-            <div class="button-register">
-              <button type="submit" class="button">Log In</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+{% block title %} {{ block.super }}::{{ title }} {% endblock %}
+{% block formcontent %}
+<form method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    {{form.username}}
   </div>
-</section>
-
+  <div class="form-group">
+    {{form.password}}
+  </div>
+  <button type="submit" id="button" class="btn btn-primary btn-block ">Submit</button>
+</form>
 {% endblock %}

@@ -19,22 +19,33 @@ class CommentForm(forms.ModelForm):
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(
             label="Имя пользователя",
-            widget=forms.TextInput(attrs={"class": "form-control"}))
+            widget=forms.TextInput(attrs={"class": "form-control", "id": "username", "placeholder":"Enter username"}))
     password = forms.CharField(
             label="Пароль",
-            widget=forms.PasswordInput(attrs={"class":"form-control"})
+            widget=forms.PasswordInput(attrs={"class": "form-control", "id": "password", "placeholder":"Enter password"})
             )
 
 class UserRegisterForm(UserCreationForm):
+    username = forms.CharField(
+            label="Имя пользователя",
+            widget=forms.TextInput(attrs={"class": "form-control", "id": "username", "placeholder":"Enter username"}))
     email = forms.EmailField(
             label="Email",
-            widget=forms.TextInput(attrs={"class": "form-control"})
+            widget=forms.TextInput(attrs={"class": "form-control", "id": "email", "placeholder":"Enter email"})
+            )
+    password1 = forms.CharField(
+            label="Пароль",
+            widget=forms.PasswordInput(attrs={"class": "form-control", "id": "password", "placeholder":"Enter password"})
+            )
+    password2 = forms.CharField(
+            label="Пароль",
+            widget=forms.PasswordInput(attrs={"class": "form-control", "id": "password", "placeholder":"Repeat password"})
             )
     is_subscribed = forms.BooleanField(
             label="Подписать на рассылку?",
             required=False,
             initial=True,
-            widget=forms.CheckboxInput(attrs={"class": "form-control"})
+            widget=forms.CheckboxInput(attrs={"class": "form-control", "id": "checkbox"})
             )
     class Meta:
         model = User
