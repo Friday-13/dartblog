@@ -54,10 +54,6 @@ class UserRegisterForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
-        profile = Profile()
-        profile.user = user
-        profile.is_subscribed = self.cleaned_data['is_subscribed']
         if commit:
             user.save()
-            profile.save()
         return user
