@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import HttpResponseRedirect, redirect, render
 from django.http import HttpRequest
@@ -128,6 +129,19 @@ class SearchByTitle(ListView):
         return context
 
 
+class PostsByUser(ListView):
+    model = Post
+    template_name = 'blog/profile.html'
+    context_object_name = 'posts'
+    paginate_by = 6
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['user'] = User.objects.get(pk=self.kwargs['pk'])
+        context['title'] = 'Profile'
+        return context
+
+
 def user_logout(request: HttpRequest):
     logout(request)
     return HttpResponseRedirect(request.POST.get('next', '/'))
@@ -153,3 +167,5 @@ def user_register(request: HttpRequest):
     else:
         form = UserRegisterForm()
     return render(request, 'blog/register.html', {'form': form, 'title': 'Register', 'formtitle': 'Register form'})
+
+

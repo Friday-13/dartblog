@@ -41,7 +41,7 @@
                     <article class="comment">
                       <header class="comment-author">
                         {% if comment.user.profile.photo %}
-                        <img src="{{comment.user.profile.photo.url}}" alt="" class='comment-author' />
+                        <img src="{{comment.user.profile.photo.url}}"  class='comment-author' />
                         {% else %}
                         <img src="{% static 'img/default_avatar.jpg' %}" alt="" class='comment-author' />
                         {% endif %}
