@@ -7,8 +7,8 @@ from django.urls import reverse
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormMixin
 from django.contrib import messages
-from .models import Comment, Post, Tag, Category
-from .forms import CommentForm, UserLoginForm, UserRegisterForm
+from .models import Comment, Post, Profile, Tag, Category
+from .forms import CommentForm, EditProfileForm, EditUserForm, UserLoginForm, UserRegisterForm
 from django.db.models import F, Q
 from django.contrib.auth import login, logout
 
@@ -170,4 +170,22 @@ def user_register(request: HttpRequest):
         form = UserRegisterForm()
     return render(request, 'blog/register.html', {'form': form, 'title': 'Register', 'formtitle': 'Register form'})
 
+def user_profile_edit(request: HttpRequest):
+    if request.method == 'POST':
+        user_form = EditUserForm(data=request.POST, instance=request.user)
+        profile_form = EditProfileForm(data=request.POST, files=request.FILES, instance=request.user.profile)
 
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            print(profile_form.cleaned_data)
+            e_profile = Profile.objects.get(user=request.user)
+            # e_profile.user = request.user
+            e_profile.photo = profile_form.cleaned_data['photo']
+            e_profile.is_subscribed = profile_form.cleaned_data['is_subscribed'] 
+            profile_form.save()
+            # e_profile.save()
+            return redirect('home')
+    else:
+        user_form = EditUserForm(instance=request.user)
+        profile_form = EditProfileForm(instance=request.user.profile)
+    return render(request, 'blog/edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})

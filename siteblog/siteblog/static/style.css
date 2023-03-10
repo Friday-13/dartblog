@@ -823,6 +823,25 @@ section.blog-post-area h4 span.author-name a {
     text-transform: uppercase;
 }
 
+.blog-post-area form input {
+    border: 1px solid #e6e6e6;
+    margin: 0;
+    padding: 12px 22px;
+    border-radius: 5px;
+    width: 100%
+}
+
+.blog-post-area .login input[type="submit"] {
+    width: 30%;
+    background: #40c4ff;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: Geometria;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+
 .blog-post-area img.portfolio-photo {
     object-fit: cover;
     border-radius: 50%;

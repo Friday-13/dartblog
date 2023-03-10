@@ -80,9 +80,11 @@
             {% if request.user.is_authenticated %}
             <h2 class="sidebar-title">Nice to see you, {{request.user.username}}!</h2>
             <div class='login'>
-              <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <!--<button type="button" class="button" >Sing out</button>-->
+              <form action="{{request.user.profile.get_absolute_url}}" method="get" style='display:inline'>
+                <input type="submit" value="Profile" />
+              </form>
+              <form action="{% url 'logout' %}" method="post" style='display:inline'>
+                {% csrf_token %} 
                 <input type="hidden" name="next" value="{{ request.path }}">
                 <input type="submit" value="Log out" />
               </form>

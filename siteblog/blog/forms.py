@@ -57,3 +57,30 @@ class UserRegisterForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class EditUserForm(forms.ModelForm):
+    username = forms.CharField(
+            label="Имя пользователя",
+            widget=forms.TextInput(attrs={"class": "form-control", "id": "username", "placeholder":"Enter username"}))
+    email = forms.EmailField(
+            label="Email",
+            widget=forms.TextInput(attrs={"class": "form-control", "id": "email", "placeholder":"Enter email"})
+            )
+    class Meta:
+        model = User
+        fields = ['username', 'email',]
+
+class EditProfileForm(forms.ModelForm):
+    photo = forms.ImageField(
+            label="Фото пользователя",
+            required=False,
+            widget = forms.FileInput(attrs={'class': 'form-control-file'})
+            )
+    is_subscribed = forms.BooleanField(
+            label="Подписать на рассылку?",
+            required=False,
+            widget=forms.CheckboxInput(attrs={"class": "form-control", "id": "checkbox"})
+            )
+    class Meta:
+        model = Profile
+        fields = ['photo','is_subscribed',]

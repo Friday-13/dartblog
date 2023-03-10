@@ -1,0 +1,12 @@
+{% extends 'base_login.html' %}
+{% load static %}
+{% block title %} {{ block.super }}::{{ title }} {% endblock %}
+{% block formcontent %}
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ user_form.as_p }}
+  {{ profile_form.as_p }}
+  <button type="reset" id="button" class="btn btn-primary btn-block ">Reset</button>
+  <button type="submit" id="button" class="btn btn-primary btn-block ">Submit</button>
+</form>
+{% endblock %}
