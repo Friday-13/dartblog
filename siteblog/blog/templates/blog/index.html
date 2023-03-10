@@ -1,8 +1,8 @@
-{% extends 'base.html' %} 
-{% block title %} 
-{{ block.super }} :: {{ title }} 
-{%endblock %} 
-{% block content %} 
+{% extends 'base.html' %}
+{% block title %}
+{{ block.super }} :: {{ title }}
+{%endblock %}
+{% block content %}
 {% load static %}
 {%load page_blocks%}
 
@@ -26,10 +26,12 @@
               <h3><a href="{{pinned_post.get_absolute_url}}">{{pinned_post.title}}</a></h3>
               <p>{{pinned_post.content|truncatewords_html:60|safe}}</p>
               <h4>
-                <span class="date">{{ pinned_post.created_at|date:"f d.m.Y" }}</span
-                ><span class="author"
-                  >Posted By: <span class="author-name">{{ pinned_post.author}}</span></span
-                >
+                <span class="date">{{ pinned_post.created_at|date:"f d.m.Y" }}</span><span class="author">Posted By:
+                  <span class="author-name">
+                    <a href="{{pinned_post.author.profile.get_absolute_url}}">
+                      {{ pinned_post.author }}
+                    </a>
+</span></span>
               </h4>
             </div>
           </div>
@@ -39,24 +41,23 @@
         <!--This if aligns rows in posts-->
         {% if forloop.counter0 == 0 or forloop.counter0 == 4 %}
         <div class="row">
-        {% endif %}
+          {% endif %}
           <div class="col-md-3">
             <div class="single-post">
               {% if post.photo %}
               <img src="{{ post.photo.url }}" alt="" />
               {% else %}
-              <img
-                src="https://picsum.photos/285/191?blur=2"
-                alt="Default Photo"
-                width="285"
-              />
+              <img src="https://picsum.photos/285/191?blur=2" alt="Default Photo" width="285" />
               {% endif %}
               <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
               <h4>
-                <span
-                  >Posted By:
-                  <span class="author-name">{{ post.author }}</span></span
-                >
+                <span>Posted By:
+                  <span class="author-name">
+                    <a href="{{post.author.profile.get_absolute_url}}">
+                      {{ post.author }}
+                    </a>
+                  </span>
+                </span>
               </h4>
               <p>{{ post.content|truncatewords_html:20|safe }}</p>
               <h4><span>{{ post.created_at|date:"f d.m.Y" }}</span></h4>
@@ -64,12 +65,12 @@
           </div>
           {% if forloop.counter0 == 3 or forloop.counter0 == 7 or forloop.last %}
         </div>
-        {% endif %} 
+        {% endif %}
         {% endfor %}
       </div>
     </div>
   </div>
-{% include 'inc/_pagination.html' %}
+  {% include 'inc/_pagination.html' %}
 </section>
 
 {% endblock %}

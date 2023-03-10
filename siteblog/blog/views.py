@@ -140,7 +140,9 @@ class PostsByUser(ListView):
         context['user'] = User.objects.get(pk=self.kwargs['pk'])
         context['title'] = 'Profile'
         return context
-
+    
+    def get_queryset(self):
+        return self.model.objects.filter(author__pk=self.kwargs['pk'])
 
 def user_logout(request: HttpRequest):
     logout(request)

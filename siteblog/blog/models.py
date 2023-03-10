@@ -114,6 +114,11 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='users_photo/%Y/%m/%d/', blank=True, verbose_name='Фото')
     is_subscribed = models.BooleanField(default=True, verbose_name='В рассылке')
+    
+    def get_absolute_url(self):
+        return reverse('profile', kwargs={'pk':self.user.pk})
+
+    
 
 class Comment(models.Model):
     '''

@@ -193,12 +193,19 @@ section.blog-post-area h4 span.author-name {
     font-weight: 500;
 }
 
+section.blog-post-area h4 span.author-name a {
+    color:#061e37;
+}
 .blog-post-area .single-post h3 a {
     font-family: Geometria;
     font-size: 28px;
     font-weight: 700;
     text-decoration: none;
     color: #061e37;
+}
+
+.blog-post-area .single-post span a {
+    color:#061e37;
 }
 
 .blog-post-area .single-post p {

@@ -48,7 +48,7 @@
                       </header>
                       <section class="comment-details">
                         <div class="author-name">
-                          <h5><a>{{comment.user}}</a></h5>
+                          <h5><a href="{{comment.user.profile.get_absolute_url}}">{{comment.user}}</a></h5>
                           <p>{{ comment.created_at|date:"f d.m.Y" }}</p>
                         </div>
                         <div class="comment-body">
