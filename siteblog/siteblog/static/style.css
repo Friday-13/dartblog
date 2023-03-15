@@ -802,7 +802,7 @@ section.blog-post-area h4 span.author-name a {
     margin: 30px 0 0;
 }
 .single-blog-area .login input[type="submit"] {
-    width: 30%;
+    width: 32%;
     background: #40c4ff;
     color: #fff;
     text-transform: uppercase;
@@ -832,7 +832,7 @@ section.blog-post-area h4 span.author-name a {
 }
 
 .blog-post-area .login input[type="submit"] {
-    width: 30%;
+    width: 32%;
     background: #40c4ff;
     color: #fff;
     text-transform: uppercase;

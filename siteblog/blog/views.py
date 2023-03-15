@@ -1,9 +1,8 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import HttpResponseRedirect, redirect, render
 from django.http import HttpRequest
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormMixin
 from django.contrib import messages
@@ -11,6 +10,7 @@ from .models import Comment, Post, Profile, Tag, Category
 from .forms import CommentForm, EditProfileForm, EditUserForm, UserLoginForm, UserRegisterForm
 from django.db.models import F, Q
 from django.contrib.auth import login, logout
+from django.contrib.auth.views import PasswordChangeView
 
 class Home(ListView):
     model = Post
@@ -144,6 +144,7 @@ class PostsByUser(ListView):
     def get_queryset(self):
         return self.model.objects.filter(author__pk=self.kwargs['pk'])
 
+
 def user_logout(request: HttpRequest):
     logout(request)
     return HttpResponseRedirect(request.POST.get('next', '/'))
@@ -160,6 +161,7 @@ def user_login(request: HttpRequest):
         form = UserLoginForm()
     return render(request, 'blog/login.html', {'form': form, 'title': 'Login'})
 
+
 def user_register(request: HttpRequest):
     if request.method == 'POST':
         form = UserRegisterForm(data=request.POST)
@@ -169,6 +171,7 @@ def user_register(request: HttpRequest):
     else:
         form = UserRegisterForm()
     return render(request, 'blog/register.html', {'form': form, 'title': 'Register', 'formtitle': 'Register form'})
+
 
 def user_profile_edit(request: HttpRequest):
     if request.method == 'POST':
@@ -189,3 +192,7 @@ def user_profile_edit(request: HttpRequest):
         user_form = EditUserForm(instance=request.user)
         profile_form = EditProfileForm(instance=request.user.profile)
     return render(request, 'blog/edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+class ChangePassword(PasswordChangeView):
+    template_name = 'blog/change_password.html'
+    success_url = reverse_lazy('home')
