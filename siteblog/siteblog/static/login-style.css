@@ -30,7 +30,8 @@
 
 #body {
   font-family: "Geometria";
-  background-color: #5d8fc9;
+  background-color: #fff;
+
 }
 #login-card {
   width: 350px;
@@ -75,6 +76,21 @@
 #button {
   border-radius: 5px;
   background-color: #40c4ff;
+  border: 1px solid #e6e6e6;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+#button:focus {
+  outline: none;
+}
+
+#id_photo::file-selector-button {
+  border-radius: 5px;
+  border: solid;
+  background-color: #40c4ff;
   border-color: #40c4ff;
   font-size: 15px;
   font-weight: 500;
@@ -83,15 +99,11 @@
 }
 
 #checkbox {
-  border-radius: 5px;
-  background-color: #40c4ff;
-  border-color: #40c4ff;
-  font-size: 15px;
-  font-weight: 500;
-  color: #fff;
-  text-transform: uppercase;
   accent-color: #40c4ff;
+  webkit-box-shadow: none;
+  box-shadow: none;
 }
+
 #btn {
   position: absolute;
   bottom: -35px;

@@ -180,18 +180,14 @@ def user_profile_edit(request: HttpRequest):
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
-            print(profile_form.cleaned_data)
-            e_profile = Profile.objects.get(user=request.user)
-            # e_profile.user = request.user
-            e_profile.photo = profile_form.cleaned_data['photo']
-            e_profile.is_subscribed = profile_form.cleaned_data['is_subscribed'] 
             profile_form.save()
-            # e_profile.save()
             return redirect('home')
     else:
         user_form = EditUserForm(instance=request.user)
         profile_form = EditProfileForm(instance=request.user.profile)
-    return render(request, 'blog/edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'blog/edit_profile.html', 
+                  {'user_form': user_form, 'profile_form': profile_form,
+                   'title': 'Edit'})
 
 class ChangePassword(PasswordChangeView):
     template_name = 'blog/change_password.html'

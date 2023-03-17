@@ -3,10 +3,42 @@
 {% block title %} {{ block.super }}::{{ title }} {% endblock %}
 {% block formtitle %} Edit profile form {% endblock %}
 {% block formcontent %}
-<form method="post" enctype="multipart/form-data">
+
+
+{% if user_form.errors or profile_form.errors %}
+<div class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <div id="form_errors">
+    {% for key, value in user_form.errors.items %}
+    <strong>{{ value }}</strong>
+    {% endfor %}
+    
+    {% for key, value in profile_form.errors.items %}
+    <strong>{{ value }}</strong>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<form method="POST" enctype="multipart/form-data">
   {% csrf_token %}
-  {{ user_form.as_p }}
-  {{ profile_form.as_p }}
+
+  {% for field in user_form %}
+  <div class="form-group">
+    <label for="{{ form.field.id_for_label }}" class="form-label">{{ field.label_tag }}</label>
+    {{ field }}
+  </div>
+  {%endfor%}
+
+  {% for field in profile_form %}
+  <div class="form-group">
+    <label for="{{ form.field.id_for_label }}" class="form-label">{{ field.label_tag }}</label>
+    {{ field }}
+  </div>
+  {%endfor%}
+
   <button type="reset" id="button" class="btn btn-primary btn-block ">Reset</button>
   <button type="submit" id="button" class="btn btn-primary btn-block ">Submit</button>
 </form>

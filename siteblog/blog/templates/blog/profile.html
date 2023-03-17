@@ -60,9 +60,8 @@
               <form action="{% url 'edit_profile' %}" method="get" style='display:inline'>
                 <input type="submit" name='config-profile' value="Edit" />
               </form>
-              <form action="{% url 'change_password' %}" method="post" style='display:inline'>
-                {% csrf_token %} 
-                <input type="hidden" name="next" value="{{ request.path }}">
+              <form action="{% url 'change_password' %}" method="get" style='display:inline'>
+                <!--<input type="hidden" name="next" value="{{ request.path }}">-->
                 <input type="submit" value="Password" />
               </form>
               <form action="{% url 'logout' %}" method="post" style='display:inline'>

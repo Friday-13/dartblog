@@ -3,6 +3,7 @@ from ckeditor import widgets
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
+from django.utils.safestring import mark_safe
 from .models import Comment, Profile
 
 
@@ -60,7 +61,7 @@ class UserRegisterForm(UserCreationForm):
 
 class EditUserForm(forms.ModelForm):
     username = forms.CharField(
-            label="Имя пользователя",
+            label="User name",
             widget=forms.TextInput(attrs={"class": "form-control", "id": "username", "placeholder":"Enter username"}))
     email = forms.EmailField(
             label="Email",
@@ -72,15 +73,16 @@ class EditUserForm(forms.ModelForm):
 
 class EditProfileForm(forms.ModelForm):
     photo = forms.ImageField(
-            label="Фото пользователя",
+            label="User photo",
             required=False,
-            widget = forms.FileInput(attrs={'class': 'form-control-file'})
+            widget = forms.FileInput(attrs={"class": "form-control-file", "lang": "en"})
             )
     is_subscribed = forms.BooleanField(
-            label="Подписать на рассылку?",
+            label="Subscribe to news?",
             required=False,
-            widget=forms.CheckboxInput(attrs={"class": "form-control", "id": "checkbox"})
-            )
+            widget=forms.CheckboxInput(attrs={"class": "form-control", "id": "checkbox"}))
+
     class Meta:
         model = Profile
-        fields = ['photo','is_subscribed',]
+        fields = ['photo','is_subscribed']
+
