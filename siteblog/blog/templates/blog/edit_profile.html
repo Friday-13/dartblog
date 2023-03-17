@@ -14,7 +14,7 @@
     {% for key, value in user_form.errors.items %}
     <strong>{{ value }}</strong>
     {% endfor %}
-    
+
     {% for key, value in profile_form.errors.items %}
     <strong>{{ value }}</strong>
     {% endfor %}
@@ -22,24 +22,25 @@
 </div>
 {% endif %}
 
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" id="form-content">
   {% csrf_token %}
 
   {% for field in user_form %}
-  <div class="form-group">
-    <label for="{{ form.field.id_for_label }}" class="form-label">{{ field.label_tag }}</label>
+  <div class="form-group" id="form-row">
+    <label for="{{ form.field.id_for_label }}">{{ field.label_tag }}</label>
     {{ field }}
   </div>
   {%endfor%}
 
   {% for field in profile_form %}
-  <div class="form-group">
+  <div class="form-group" id="form-row">
     <label for="{{ form.field.id_for_label }}" class="form-label">{{ field.label_tag }}</label>
     {{ field }}
   </div>
   {%endfor%}
-
-  <button type="reset" id="button" class="btn btn-primary btn-block ">Reset</button>
-  <button type="submit" id="button" class="btn btn-primary btn-block ">Submit</button>
+  <div id="button-group">
+    <button type="reset" id="button" class="btn btn-primary btn-block ">Reset</button>
+    <button type="submit" id="button" class="btn btn-primary btn-block ">Submit</button>
+  </div>
 </form>
 {% endblock %}

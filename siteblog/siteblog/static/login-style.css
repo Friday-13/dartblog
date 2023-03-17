@@ -31,12 +31,30 @@
 #body {
   font-family: "Geometria";
   background-color: #fff;
-
 }
 #login-card {
   width: 350px;
   border-radius: 10px;
+  border: solid 1px;
   margin: 150px auto;
+}
+
+#login-card-body {
+  padding:20px;
+  display: flex;
+  flex-direction: column;
+}
+
+#form-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px; 
+}
+
+#form-row {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem; 
 }
 
 #email {
@@ -81,6 +99,12 @@
   font-weight: 500;
   color: #fff;
   text-transform: uppercase;
+}
+
+#button-group {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem; 
 }
 
 #button:focus {

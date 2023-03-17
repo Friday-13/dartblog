@@ -46,8 +46,12 @@
     text-transform: uppercase;
 }
 
+.wrapper header.header .row {
+    display: flex;
+}
+
 .wrapper header.header .menu {
-    margin: 0
+    margin: 0;
 }
 
 .wrapper header.header .menu ul {
@@ -90,9 +94,12 @@
     /*height: 600px;*/
     background-position: center;
     padding: 205px 280px;
+
 }
 
-.wrapper section.bg-text-area .container {}
+.wrapper section.bg-text-area .container {
+    margin-bottom: 50px;
+}
 
 .wrapper section.bg-text-area .bg-text h3 {
     color: #fff;
@@ -115,7 +122,7 @@
 }
 
 section.blog-post-area {
-    margin-top: 50px;
+    margin-top: 0px;
 }
 
 section.blog-post-area .big-image {
@@ -202,6 +209,11 @@ section.blog-post-area h4 span.author-name a {
     font-weight: 700;
     text-decoration: none;
     color: #061e37;
+}
+
+
+.blog-post-area .filler {
+    min-height: 800px;
 }
 
 .blog-post-area .single-post span a {
@@ -647,8 +659,12 @@ section.blog-post-area h4 span.author-name a {
 }
 
 /*comment part end*/
+
 .grid .portfolio-item {
     margin-bottom: 30px;
+    position: absolute;
+    left: 0px; 
+    top: 0px
 }
 .grid .portfolio-item img {
     float: left;
@@ -797,10 +813,11 @@ section.blog-post-area h4 span.author-name a {
     width: 33%;
 }
 
-
 .single-blog-area .login form {
     margin: 30px 0 0;
+    display:inline;
 }
+
 .single-blog-area .login input[type="submit"] {
     width: 32%;
     background: #40c4ff;
@@ -823,6 +840,10 @@ section.blog-post-area h4 span.author-name a {
     text-transform: uppercase;
 }
 
+.blog-post-area .login form {
+    margin: 30px 0 0;
+    display:inline;
+}
 .blog-post-area form input {
     border: 1px solid #e6e6e6;
     margin: 0;

@@ -6,9 +6,10 @@
   <button data-filter=".category" class="button">Category</button>
 </div>
 
-<div class="grid" style="position: relative; height: 1221.93px">
-  {% for posts in post_list %} {% for post in posts %}
-  <div class="portfolio-item {{posts.identifier}}" style="position: absolute; left: 0px; top: 0px">
+<div class="grid">
+  {% for posts in post_list %}
+  {% for post in posts %}
+  <div class="portfolio-item {{posts.identifier}}">
     <img src="{{ post.photo.url }}" alt="" />
     <div class="portfolio-text">
       <h5>

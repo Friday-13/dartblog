@@ -10,22 +10,22 @@
   <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
   <link rel="stylesheet" href="{% static 'login-style.css' %}" />
   <link rel="stylesheet" href="{% static 'style.css' %}" />
-    <link rel="stylesheet" href="{% static 'responsive.css' %}" />
+  <link rel="stylesheet" href="{% static 'responsive.css' %}" />
   <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <link rel="stylesheet" href="{% static 'responsive.css' %}" />
 </head>
 
 <body id="body">
-  <div class="wrapper" style="color: white">
+  <div class="wrapper">
     {% include "inc/_header.html" %}
   </div>
   <div class="col-md-12">
     <div class="border-top">
-      <div id="login-card" class="card" style="border: solid 1px;">
-        <div class="card-body" style="padding:20px">
+      <div id="login-card" class="card">
+        <div id="login-card-body" class="card-body">
           <h2 class="text-center">{% block formtitle %} Login form {% endblock %}</h2>
-          <br>
           {% block formcontent %}
           <form method="post">
             {% csrf_token %}
@@ -42,7 +42,7 @@
       </div>
     </div>
   </div>
-  <div class="wrapper" style="">
+  <div class="wrapper">
     {% include "inc/_footer.html" %}
   </div>
 </body>
