@@ -470,6 +470,28 @@ section.blog-post-area h4 span.author-name a {
     margin-right: 40px;
 }
 
+.single-blog-area .post-author{
+  margin-top: 40px;
+}
+
+.single-blog-area .post-author h5 {
+    font-family: Geometria;
+    font-size: 18px;
+    font-weight: 400;
+    text-decoration: none;
+    color: #000;
+    text-align: right;
+    color: #061e37;
+}
+
+.single-blog-area .post-author h5 a {
+    font-family: Geometria;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 10px;
+    color: #061e37;
+}
+
 .single-blog-area .ads-area {
     border-top: 1px solid #e6e6e6;
     margin-top: 30px;
@@ -543,7 +565,6 @@ section.blog-post-area h4 span.author-name a {
 }
 
 
-}
 .single-blog-area .commententries .author-name h5 a {
     font-family: Geometria;
     font-size: 21px;

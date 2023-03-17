@@ -26,6 +26,9 @@
                 </div>
 
                 <img src="{{ post.photo.url }}" alt="">
+                <div class='post-author'>
+                  <h5>Posted by: <a href="{{ post.author.profile.get_absolute_url }}">{{post.author.username}}</a></h5>
+                </div>
                 {%tags_for_post post 'post tags'%}
               </div>
               <div class="ads-area">
@@ -41,7 +44,7 @@
                     <article class="comment">
                       <header class="comment-author">
                         {% if comment.user.profile.photo %}
-                        <img src="{{comment.user.profile.photo.url}}"  class='comment-author' />
+                        <img src="{{comment.user.profile.photo.url}}" class='comment-author' />
                         {% else %}
                         <img src="{% static 'img/default_avatar.jpg' %}" alt="" class='comment-author' />
                         {% endif %}
@@ -84,7 +87,7 @@
                 <input type="submit" value="Profile" />
               </form>
               <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %} 
+                {% csrf_token %}
                 <input type="hidden" name="next" value="{{ request.path }}">
                 <input type="submit" value="Log out" />
               </form>
