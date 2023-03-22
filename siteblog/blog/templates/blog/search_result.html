@@ -29,7 +29,12 @@
                 </h3>
                 <h4>
                   <span>Posted By:
-                    <span class="author-name">{{ post.author }}</span></span>
+                    <span class="author-name">
+                      <a href="{{post.author.profile.get_absolute_url}}">
+                        {{ post.author }}
+                      </a>
+                    </span>
+                  </span>
                 </h4>
                 <p>{{ post.content|truncatewords_html:20|safe }}</p>
                 <h4><span>{{ post.created_at|date:"f d.m.Y" }}</span></h4>

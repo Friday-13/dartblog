@@ -25,8 +25,13 @@ class Home(ListView):
         '''
         Get latest post as pinned
         '''
-        context['pinned_post'] = Post.objects.all().latest('created_at')
+        context['pinned_post'] = Post.objects.\
+                select_related('author', 'author__profile').all().latest('created_at')
         return context
+
+    def get_queryset(self):
+        return self.model.objects.select_related('author', 'author__profile')
+
 
 class PostsByCategory(ListView):
     model = Post
@@ -46,14 +51,18 @@ class PostsByCategory(ListView):
         pinned_post = Post.objects.filter(Q(category__slug=self.kwargs['slug']) &
                                                   Q(pinned_post=True))
         if pinned_post.exists():
+            pinned_post = pinned_post.select_related('author', 'author__profile')
             context['pinned_post'] = pinned_post[0]
         else:
-            context['pinned_post'] = Post.objects.filter(
-                    category__slug=self.kwargs['slug']).latest('created_at')
+            context['pinned_post'] = Post.objects.\
+                    select_related('author','author__profile'). \
+                    filter(category__slug=self.kwargs['slug']). \
+                    latest('created_at')
         return context
     
     def get_queryset(self):
-        return self.model.objects.filter(category__slug=self.kwargs['slug'])
+        return self.model.objects.select_related('author', 'author__profile').\
+                filter(category__slug=self.kwargs['slug'])
 
 
 class SinglePost(FormMixin, DetailView):
@@ -72,7 +81,8 @@ class SinglePost(FormMixin, DetailView):
         self.object.refresh_from_db()
 
         # Get comments
-        context['comments'] = Comment.objects.filter(Q(post=self.object) & Q(active=True))
+        context['comments'] = Comment.objects.select_related('user', 'user__profile').\
+                                filter(Q(post=self.object) & Q(active=True))
         return context
 
     def get_success_url(self):
@@ -110,7 +120,8 @@ class PostsByTag(ListView):
         return context
     
     def get_queryset(self):
-        return self.model.objects.filter(tags__slug=self.kwargs['slug'])
+        return self.model.objects.select_related('author', 'author__profile').\
+                filter(tags__slug=self.kwargs['slug'])
 
 
 class SearchByTitle(ListView):
@@ -120,7 +131,8 @@ class SearchByTitle(ListView):
     paginate_by = 8
 
     def get_queryset(self):
-        return self.model.objects.filter(title__icontains=self.request.GET.get('s'))
+        return self.model.objects.select_related('author', 'author__profile').\
+                filter(title__icontains=self.request.GET.get('s'))
     
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
@@ -137,12 +149,13 @@ class PostsByUser(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
-        context['user'] = User.objects.get(pk=self.kwargs['pk'])
+        context['user'] = User.objects.select_related('profile').get(pk=self.kwargs['pk'])
         context['title'] = 'Profile'
         return context
     
     def get_queryset(self):
-        return self.model.objects.filter(author__pk=self.kwargs['pk'])
+        return self.model.objects.select_related('author').\
+            filter(author__pk=self.kwargs['pk'])
 
 
 def user_logout(request: HttpRequest):
