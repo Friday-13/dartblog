@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load cache %}
 <html lang="en">
 
 <head>
@@ -19,9 +20,13 @@
 
 <body>
   <div class="wrapper">
+    {% cache 120 header %}
     {% include "inc/_header.html" %}
+    {% endcache %}
     {% block content %} {% endblock %}
+    {% cache 120 footer %}
     {% include "inc/_footer.html" %}
+    {% endcache %}
   </div>
   <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.min.js' %}"></script>

@@ -6,6 +6,7 @@ __pycache__
 db.sqlite3
 media
 siteblog/static/
+*.djcache
 
 # scripts with env-variables #
 setenv.sh
