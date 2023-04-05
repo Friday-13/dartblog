@@ -36,6 +36,14 @@
     <p>Subscribe for our news?</p>
     {{form.is_subscribed}}
   </div>
+  <div class="col-md-12">
+    <div class="col-md-6">
+      <h5 id="link"><a id="link" href="{% url 'login' %}">Do you  have an account?</a></h5>
+    </div>
+    <div class="col-md-6">
+      <h5 id="link"><a id="link" href="{% url 'password_reset' %}">Forget your password?</a></h5>
+    </div>
+  </div>
   <button type="submit" id="button" class="btn btn-primary btn-block ">Submit</button>
 </form>
 {% endblock %}

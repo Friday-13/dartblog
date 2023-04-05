@@ -227,4 +227,4 @@ EMAIL_HOST_PASSWORD = os.getenv('SMTP_PASS')
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 PASSWORD_RESET_TIMEOUT = 14400 # life-time for verify vlin linkk
-
+DEFAULT_FROM_EMAIL = os.getenv('SMTP_EMAIL')

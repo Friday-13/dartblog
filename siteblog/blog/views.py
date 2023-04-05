@@ -10,13 +10,14 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormMixin
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
 from django.conf import settings
 from .models import Comment, Post, Tag, Category
 from .forms import CommentForm, EditProfileForm, EditUserForm, UserLoginForm, UserRegisterForm
 from django.db.models import F, Q
 from django.contrib.auth import get_user_model, login, logout
-from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.views import PasswordChangeView, PasswordResetConfirmView, PasswordResetView
 from django.contrib import messages
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
@@ -253,3 +254,17 @@ def activate(request, uidb64, token):
         messages.error(request, 'Activation link is invalid!')
     return redirect('home')
 
+class PasswordReset(SuccessMessageMixin, PasswordResetView):
+    success_url = reverse_lazy('home')
+    success_message = f'Please, check your email. We sent your a letter with next step description'
+    
+    template_name = 'blog/password_reset.html' 
+    extra_context = {'formtitle': 'Reset password'}
+
+class PasswordResetConfirm(SuccessMessageMixin, PasswordResetConfirmView): 
+    success_url = reverse_lazy('login')
+    success_message = f'Password reset successfully! Now you can login'
+
+    template_name = 'blog/password_reset.html'
+    extra_context = {'formtitle': 'Create new password'}
+    
