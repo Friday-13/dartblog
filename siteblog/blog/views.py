@@ -14,7 +14,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from django.conf import settings
 from .models import Comment, Post, Tag, Category
-from .forms import CommentForm, EditProfileForm, EditUserForm, UserLoginForm, UserRegisterForm
+from .forms import CommentForm, EditProfileForm, EditUserForm, UserLoginForm, UserPasswordResetConfirmForm, UserPasswordResetForm, UserRegisterForm
 from django.db.models import F, Q
 from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.views import PasswordChangeView, PasswordResetConfirmView, PasswordResetView
@@ -197,6 +197,7 @@ def user_register(request: HttpRequest):
             return redirect('home')
     else:
         form = UserRegisterForm()
+    # print(form.email.widget.attrs)
     return render(request, 'blog/register.html', {'form': form, 'title': 'Register', 'formtitle': 'Register form'})
 
 
@@ -257,14 +258,16 @@ def activate(request, uidb64, token):
 class PasswordReset(SuccessMessageMixin, PasswordResetView):
     success_url = reverse_lazy('home')
     success_message = f'Please, check your email. We sent your a letter with next step description'
-    
+
+    form_class = UserPasswordResetForm
     template_name = 'blog/password_reset.html' 
     extra_context = {'formtitle': 'Reset password'}
 
 class PasswordResetConfirm(SuccessMessageMixin, PasswordResetConfirmView): 
     success_url = reverse_lazy('login')
     success_message = f'Password reset successfully! Now you can login'
-
+    
+    form_class = UserPasswordResetConfirmForm
     template_name = 'blog/password_reset.html'
     extra_context = {'formtitle': 'Create new password'}
     

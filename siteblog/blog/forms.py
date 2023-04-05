@@ -1,6 +1,6 @@
 import re
 from ckeditor import widgets
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
@@ -86,3 +86,19 @@ class EditProfileForm(forms.ModelForm):
         model = Profile
         fields = ['photo','is_subscribed']
 
+
+class UserPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(
+            label="Email",
+            widget=forms.TextInput(attrs={"class": "form-control", "id": "email", "placeholder":"Enter email"})
+            )
+
+class UserPasswordResetConfirmForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+            label="Password",
+            widget=forms.PasswordInput(attrs={"class": "form-control", "id": "password", "placeholder":"Enter password"})
+            )
+    new_password2 = forms.CharField(
+            label="Password",
+            widget=forms.PasswordInput(attrs={"class": "form-control", "id": "password", "placeholder":"Repeat password"})
+            )
