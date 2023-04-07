@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth import logout, login, get_user_model
 from django.contrib.auth.views import PasswordChangeView, PasswordResetConfirmView, PasswordResetView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
@@ -58,6 +60,7 @@ def user_register(request: HttpRequest):
                   {'form': form, 'title': 'Register', 'formtitle': 'Register form'})
 
 
+@login_required(login_url=reverse_lazy('login'))
 def user_profile_edit(request: HttpRequest):
     '''
     View for user edit form (change username, email, avatar, subscription status)
@@ -104,10 +107,11 @@ def activate_email(request, user, to_email):
         messages.error(request, f'Problem sending confirmation email to {to_email}, check if you typed it correctly.')
 
 
-class ChangePassword(SuccessMessageMixin, PasswordChangeView):
+class ChangePassword(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
     '''
     View for change password form
     '''
+    login_url = reverse_lazy("login")
     template_name = 'users/change_password.html'
     success_url = reverse_lazy('home')
     success_message = f'Password has been saved'
