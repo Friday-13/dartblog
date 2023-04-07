@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
+    'captcha',
     'ckeditor',
     'ckeditor_uploader',
     'debug_toolbar',
@@ -213,8 +214,8 @@ INTERNAL_IPS = [
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache', # Dymmy for dev-mode
-        # 'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        # 'BACKEND': 'django.core.cache.backends.dummy.DummyCache', # Dymmy for dev-mode
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': os.path.join(BASE_DIR, 'django_cache'),
         'TIMEOUT': 60 * 1,
     }
@@ -229,3 +230,6 @@ EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 PASSWORD_RESET_TIMEOUT = 14400 # life-time for verify vlin linkk
 DEFAULT_FROM_EMAIL = os.getenv('SMTP_EMAIL')
+
+CAPTCHA_FONT_SIZE = 44
+
