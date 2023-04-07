@@ -1,28 +1,19 @@
 from django.contrib.auth.models import User
-from django.contrib.sites.shortcuts import get_current_site
 from django.http import  HttpResponseForbidden
-from django.shortcuts import HttpResponseRedirect, redirect, render
-from django.http import HttpRequest
-from django.template.loader import render_to_string
-from django.urls import reverse, reverse_lazy
-from django.utils.encoding import force_bytes, force_str
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.urls import reverse
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormMixin
-from django.contrib import messages
-from django.contrib.messages.views import SuccessMessageMixin
 
-from django.conf import settings
 from .models import Comment, Post, Tag, Category
-from users.models import User, Profile
+from users.models import User
 from .forms import CommentForm 
 from django.db.models import F, Q
-from django.contrib.auth import get_user_model, login, logout
-from django.contrib.auth.views import PasswordChangeView, PasswordResetConfirmView, PasswordResetView
-from django.contrib import messages
-from django.core.mail import EmailMessage
+
 
 class Home(ListView):
+    '''
+    View for main page
+    '''
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'posts'
@@ -44,6 +35,9 @@ class Home(ListView):
 
 
 class PostsByCategory(ListView):
+    '''
+    View for news from one category
+    '''
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'posts'
@@ -76,6 +70,9 @@ class PostsByCategory(ListView):
 
 
 class SinglePost(FormMixin, DetailView):
+    '''
+    View for single post content including comment form
+    '''
     model = Post
     form_class = CommentForm
     template_name = 'blog/single.html'
@@ -109,15 +106,18 @@ class SinglePost(FormMixin, DetailView):
             return self.form_invalid(form)
 
     def form_valid(self, form):
-        print(form.cleaned_data)
         new_comment = form.save(commit=False)
         new_comment.post = self.get_object()
         new_comment.user = self.request.user
+        new_comment.active = True
         new_comment.save()
          
         return super().form_valid(form)
 
 class PostsByTag(ListView):
+    '''
+    Views for posts conataining a common tag
+    '''
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'posts'
@@ -135,6 +135,9 @@ class PostsByTag(ListView):
 
 
 class SearchByTitle(ListView):
+    '''
+    View for searching result by title
+    '''
     model = Post
     template_name = 'blog/search_result.html'
     context_object_name = 'posts'
@@ -152,6 +155,9 @@ class SearchByTitle(ListView):
 
 
 class PostsByUser(ListView):
+    '''
+    View for "profile" - user's page with his posts
+    '''
     model = Post
     template_name = 'blog/profile.html'
     context_object_name = 'posts'

@@ -89,3 +89,4 @@ class UserPasswordResetConfirmForm(SetPasswordForm):
             label="Password",
             widget=forms.PasswordInput(attrs={"class": "form-control", "id": "password", "placeholder":"Repeat password"})
             )
+

@@ -13,15 +13,21 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 
 from .forms import *
-from .models import User, Profile
 from .tokens import account_activation_token
 
+
 def user_logout(request: HttpRequest):
+    '''
+    View for user logout
+    '''
     logout(request)
     return HttpResponseRedirect(request.POST.get('next', '/'))
 
 
 def user_login(request: HttpRequest):
+    '''
+    View for user login
+    '''
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
         if form.is_valid():
@@ -35,6 +41,9 @@ def user_login(request: HttpRequest):
 
 
 def user_register(request: HttpRequest):
+    '''
+    View for user registration form
+    '''
     if request.method == 'POST':
         form = UserRegisterForm(data=request.POST)
         if form.is_valid():
@@ -45,14 +54,19 @@ def user_register(request: HttpRequest):
             return redirect('home')
     else:
         form = UserRegisterForm()
-    # print(form.email.widget.attrs)
-    return render(request, 'users/register.html', {'form': form, 'title': 'Register', 'formtitle': 'Register form'})
+    return render(request, 'users/register.html', 
+                  {'form': form, 'title': 'Register', 'formtitle': 'Register form'})
 
 
 def user_profile_edit(request: HttpRequest):
+    '''
+    View for user edit form (change username, email, avatar, subscription status)
+    '''
     if request.method == 'POST':
         user_form = EditUserForm(data=request.POST, instance=request.user)
-        profile_form = EditProfileForm(data=request.POST, files=request.FILES, instance=request.user.profile)
+        profile_form = EditProfileForm(data=request.POST,
+                                       files=request.FILES,
+                                       instance=request.user.profile)
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
@@ -66,7 +80,12 @@ def user_profile_edit(request: HttpRequest):
                   {'user_form': user_form, 'profile_form': profile_form,
                    'title': 'Edit'})
 
+
 def activate_email(request, user, to_email):
+    '''
+    View for activation account
+    View sendes message to user's email with activation link
+    '''
     mail_subject = 'Activate your account'
     message = render_to_string('users/activate_account.html', {
         'user': user.username,
@@ -76,19 +95,29 @@ def activate_email(request, user, to_email):
         'protocol': 'https' if request.is_secure() else 'http'
     })
     email = EmailMessage(mail_subject, message, to=[to_email])
-    print(email.from_email)
     if email.send():
-        messages.success(request, f'Dear <b>{user}</b>, please go to you email <b>{to_email}</b> inbox and click on \
-            received activation link to confirm and complete the registration. <b>Note:</b> Check your spam folder.')
+        messages.success(request,
+            f'Dear <b>{user}</b>, please go to you email <b>{to_email}</b> inbox and click on \
+            received activation link to confirm and complete the registration.\
+            <b>Note:</b> Check your spam folder.')
     else:
         messages.error(request, f'Problem sending confirmation email to {to_email}, check if you typed it correctly.')
 
+
 class ChangePassword(SuccessMessageMixin, PasswordChangeView):
+    '''
+    View for change password form
+    '''
     template_name = 'users/change_password.html'
     success_url = reverse_lazy('home')
     success_message = f'Password has been saved'
 
+
 def activate(request, uidb64, token):
+    '''
+    View for account activation page. 
+    Set account active if activation link is valid
+    '''
     User = get_user_model()
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
@@ -105,7 +134,13 @@ def activate(request, uidb64, token):
         messages.error(request, 'Activation link is invalid!')
     return redirect('home')
 
+
 class PasswordReset(SuccessMessageMixin, PasswordResetView):
+    '''
+    View for reset password:
+    User enter his email and get 
+    confirmation email with link to password reset form
+    '''
     success_url = reverse_lazy('home')
     success_message = f'Please, check your email. We sent your a letter with next step description'
 
@@ -113,7 +148,11 @@ class PasswordReset(SuccessMessageMixin, PasswordResetView):
     template_name = 'users/password_reset.html' 
     extra_context = {'formtitle': 'Reset password'}
 
+
 class PasswordResetConfirm(SuccessMessageMixin, PasswordResetConfirmView): 
+    '''
+    View for reset password form
+    '''
     success_url = reverse_lazy('login')
     success_message = f'Password reset successfully! Now you can login'
     

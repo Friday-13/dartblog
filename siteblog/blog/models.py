@@ -1,19 +1,8 @@
-from enum import unique
 from django.db import models
 from django.urls import reverse
 # from django.contrib.auth.models import User
-from users.models import User, Profile 
-'''
-Models fields list
-Category:
-    title, slug
+from users.models import User 
 
-Tag:
-    title, slug
-
-Post:
-    title, slug, author, content, created_at, photo, views, category, tags
-'''
 
 class Category(models.Model):
     '''

@@ -6,6 +6,7 @@ from django.urls import reverse
 
 class Profile(models.Model):
     '''
+    Extension for User model. Include photo, subscription option and absolute_url
     user - link to standard User model
     photo - profile photo of user
     subscribed - if user subscribed to news
