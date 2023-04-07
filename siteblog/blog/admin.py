@@ -4,8 +4,6 @@ from .models import *
 from django import forms
 from django.utils.safestring import mark_safe
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.models import User
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -72,15 +70,6 @@ class PostAdmin(admin.ModelAdmin):
     get_cover.short_description = 'Обложка'
     get_miniature.short_description = 'Миниатюра'
 
-
-class ProfileInline(admin.StackedInline):
-    model = Profile
-    can_delete = False
-    verbose_name_plural = 'Фотографии'
-
-class UserAdmin(BaseUserAdmin):
-    inlines = (ProfileInline,)
-
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('post', 'user', 'created_at', 'active',)
@@ -95,5 +84,3 @@ class CommentAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Post, PostAdmin)
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
