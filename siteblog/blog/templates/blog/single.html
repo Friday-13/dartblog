@@ -1,0 +1,128 @@
+{%extends 'base.html'%}
+{%block title%}
+{{ block.super }} :: {{ title }}
+{%endblock%}
+{%block content%}
+{%load static%}
+{%load filtered_post%}
+{%load tag_cloud%}
+
+<section class="single-blog-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="border-top">
+          <h4>
+            <a href="{{ post.category.get_absolute_url }}">> {{ post.category }}</a>
+          </h4>
+          <div class="col-md-8">
+            <div class="blog-area">
+              <div class="blog-area-part">
+                <h2>{{post.title}}</h2>
+                <div class="for-style">
+                  <p>
+                    {{post.content|safe}}
+                  </p>
+                </div>
+
+                <img src="{{ post.photo.url }}" alt="">
+                <div class='post-author'>
+                  <h5>Posted by: <a href="{{ post.author.profile.get_absolute_url }}">{{post.author.username}}</a></h5>
+                </div>
+                {%tags_for_post post 'post tags'%}
+              </div>
+              <div class="ads-area">
+                <img src="{%static 'img/ads.jpg'%}" alt="" />
+                <p>Your Ad Banner Goes Here</p>
+              </div>
+              <div class="commententries">
+                <h3>Comments</h3>
+
+                <ul class="commentlist">
+                  {%for comment in comments%}
+                  <li>
+                    <article class="comment">
+                      <header class="comment-author">
+                        {% if comment.user.profile.photo %}
+                        <img src="{{comment.user.profile.photo.url}}" class='comment-author' />
+                        {% else %}
+                        <img src="{% static 'img/default_avatar.jpg' %}" alt="" class='comment-author' />
+                        {% endif %}
+                      </header>
+                      <section class="comment-details">
+                        <div class="author-name">
+                          <h5><a href="{{comment.user.profile.get_absolute_url}}">{{comment.user}}</a></h5>
+                          <p>{{ comment.created_at|date:"f d.m.Y" }}</p>
+                        </div>
+                        <div class="comment-body">
+                          <p>
+                            {{comment.body}}
+                          </p>
+                        </div>
+                      </section>
+                    </article>
+                  </li>
+                  {%endfor%}
+                </ul>
+              </div>
+              {% if request.user.is_authenticated %}
+              <form method="post">
+                {% csrf_token %}
+                {{form.body.errors}}
+                <div class="comment">
+                  {{ form.body }}
+                </div>
+                <div class="post">
+                  <input type="submit" value="Post" />
+                </div>
+              </form>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-md-4">
+            {% if request.user.is_authenticated %}
+            <h2 class="sidebar-title">Nice to see you, {{request.user.username}}!</h2>
+            <div class='login'>
+              <form action="{{request.user.profile.get_absolute_url}}" method="get">
+                <input type="submit" value="Profile" />
+              </form>
+              <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <input type="submit" value="Log out" />
+              </form>
+            </div>
+            {% else %}
+            <h2 class="sidebar-title">Login to comment</h2>
+            <div class='login'>
+              <form action="{% url 'login' %}" method="get">
+                <input type="submit" name='register' value="Log in" />
+              </form>
+              <form action="{% url 'register' %}" method="get">
+                <input type="submit" name='register' value="Register" />
+              </form>
+            </div>
+            {% endif %}
+            <div class="inputsearch">
+              <h2 class="sidebar-title">Search by title</h2>
+              <form action="{% url 'search' %}" method="get">
+                <input type="text" name="s" id="" placeholder="Search..." />
+                <input type="submit" value="Search" />
+              </form>
+            </div>
+            {% actual_posts_tpl post.category %}
+            <div class="sidebar-ads">
+              <img src="{%static 'img/sidebar-ads.jpg'%}" alt="" />
+              <p>
+                Place For Your <br />
+                Ad Banner
+              </p>
+            </div>
+            {%tag_list%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{%endblock%}

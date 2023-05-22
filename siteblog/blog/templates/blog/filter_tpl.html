@@ -1,0 +1,23 @@
+{%load static%}
+{% load filtered_post %}
+<div class="button-group filters-button-group">
+  <button data-filter=".recent" class="button is-checked">Recent</button>
+  <button data-filter=".popular" class="button">popular</button>
+  <button data-filter=".category" class="button">Category</button>
+</div>
+
+<div class="grid">
+  {% for posts in post_list %}
+  {% for post in posts %}
+  <div class="portfolio-item {{posts.identifier}}">
+    <img src="{{ post.photo.url }}" alt="" />
+    <div class="portfolio-text">
+      <h5>
+        <a href="{{post.get_absolute_url}}">{{post.title}}</a>
+      </h5>
+      <p>By {{post.author}} <span>|</span>{{post.created_at|date:"f d.m.Y"}}</p>
+    </div>
+  </div>
+  {% endfor %}
+  {% endfor %}
+</div>

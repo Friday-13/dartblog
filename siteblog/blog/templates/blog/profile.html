@@ -1,0 +1,84 @@
+{%extends 'base.html'%}
+{%block title%}
+{{ block.super }} :: {{ title }}
+{%endblock%}
+{%block content%}
+{%load static%}
+
+<section class="blog-post-area">
+  <div class="container">
+    <div class="border-top">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-8">
+            <div class="bg-text">
+              <h2>Posts by {{user.username}}</h2>
+            </div>
+            {% for post in posts %}
+            <!--This if aligns rows in posts-->
+            {% if forloop.counter0 == 0 or forloop.counter0 == 3 %}
+            <div class="row">
+              {% endif %}
+              <div class="col-md-4">
+                <div class="single-post">
+                  {% if post.photo %}
+                  <img src="{{ post.photo.url }}" alt="" />
+                  {% else %}
+                  <img src="https://picsum.photos/285/191?blur=2" alt="Default Photo" width="285" />
+                  {% endif %}
+                  <h3>
+                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                  </h3>
+                  <h4>
+                    <span>Posted By:
+                      <span class="author-name">{{ post.author }}</span></span>
+                  </h4>
+                  <p>{{ post.content|truncatewords_html:20|safe }}</p>
+                  <h4><span>{{ post.created_at|date:"f d.m.Y" }}</span></h4>
+                </div>
+              </div>
+              {% if forloop.counter0 == 2 or forloop.counter0 == 5 or forloop.last %}
+            </div>
+            {% endif %}
+            {% empty %}
+            <div class="filler">
+              <h3>This user didn't post anything</h3>
+            </div>
+            {% endfor %}
+          </div>
+
+
+          <div class="col-md-4">
+            <h2 class="sidebar-title">{{user.username}}</h2>
+            {% if user.profile.photo %}
+            <img src="{{user.profile.photo.url}}" alt="" class="portfolio-photo" />
+            {% else %}
+            <img src="{% static 'img/default_avatar.jpg' %}" alt="" class="portfolio-photo" />
+            {% endif %}
+            {% if user.pk == request.user.pk %}
+            <h2 class="sidebar-title">Edit your profile</h2>
+
+            <div class='login'>
+              <form action="{% url 'edit_profile' %}" method="get">
+                <input type="submit" name='config-profile' value="Edit" />
+              </form>
+              <form action="{% url 'password_change' %}" method="get">
+                <!--<input type="hidden" name="next" value="{{ request.path }}">-->
+                <input type="submit" value="Password" />
+              </form>
+              <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <input type="submit" value="Log out" />
+              </form>
+            </div>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include 'inc/_pagination.html' %}
+</section>
+{%endblock%}

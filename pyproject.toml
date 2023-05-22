@@ -8,6 +8,10 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 django = "^4.1.4"
+pillow = "^9.4.0"
+django-ckeditor = "^6.5.1"
+django-simple-captcha = "^0.5.17"
+django-types = "^0.17.0"
 
 
 [tool.poetry.group.dev.dependencies]

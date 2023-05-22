@@ -1,0 +1,5 @@
+export SECRET_KEY=''
+export SMTP_HOST=''
+export SMTP_EMAIL=''
+export SMTP_PASS=''
+export TEST_EMAIL_FOR_RECEIVING_EMAIL=''

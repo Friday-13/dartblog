@@ -1,0 +1,176 @@
+@font-face {
+  font-family: Geometria;
+  src: url(geometria_font/Geometria.ttf);
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Geometria;
+  src: url(geometria_font/Geometria-Bold.ttf);
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: Geometria;
+  src: url(geometria_font/Geometria-ExtraBold.ttf);
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: Geometria;
+  src: url(geometria_font/geometria-light.ttf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Geometria;
+  src: url(geometria_font/geometria-medium.ttf);
+  font-weight: 500;
+}
+
+#body {
+  font-family: "Geometria";
+  background-color: #fff;
+}
+#login-card {
+  width: 350px;
+  border-radius: 10px;
+  border: solid 1px;
+  margin: 150px auto;
+}
+
+#login-card-body {
+  padding:20px;
+  display: flex;
+  flex-direction: column;
+}
+
+#form-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px; 
+}
+
+#form-row {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem; 
+}
+
+#email {
+  border-radius: 5px;
+  background-color: field;
+  border: 1px solid #e6e6e6;
+  color: #000;
+  margin: 0;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+
+#username {
+  border-radius: 5px;
+  background-color: field;
+  border: 1px solid #e6e6e6;
+  color: #000;
+  margin: 0;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+#password {
+  border-radius: 5px;
+  background-color: field;
+  border: 1px solid #e6e6e6;
+  color: #000;
+  margin: 0;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+#captcha-input_1 {
+  border-radius: 5px;
+  background-color: field;
+  border: 1px solid #e6e6e6;
+  color: #000;
+  margin: 0;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+
+.captcha {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+}
+
+#button {
+  border-radius: 5px;
+  background-color: #40c4ff;
+  border: 1px solid #e6e6e6;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+#button-group {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem; 
+}
+
+#button:focus {
+  outline: none;
+}
+
+#id_photo::file-selector-button {
+  border-radius: 5px;
+  border: solid;
+  background-color: #40c4ff;
+  border-color: #40c4ff;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+#checkbox {
+  accent-color: #40c4ff;
+  webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+#btn {
+  position: absolute;
+  bottom: -35px;
+  padding: 5px;
+  margin: 0px 55px;
+  align-items: center;
+  border-radius: 5px;
+}
+
+#container {
+  margin-top: 25px;
+}
+
+.btn-circle.btn-sm {
+  width: 40px;
+  height: 40px;
+  padding: 2px 0px;
+  border-radius: 25px;
+  font-size: 14px;
+  text-align: center;
+  margin: 8px;
+}
+
+#link {
+  color: #061e37;
+  text-align: center;
+}

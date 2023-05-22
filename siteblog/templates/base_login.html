@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+{% load cache %}
+<html lang="en">
+
+<head>
+  <title>{% block title %} DartBlog {%endblock%}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'login-style.css' %}" />
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+  <link rel="stylesheet" href="{% static 'responsive.css' %}" />
+  <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <link rel="stylesheet" href="{% static 'responsive.css' %}" />
+</head>
+
+<body id="body">
+  <div class="wrapper">
+    {% cache 120 header %}
+    {% include "inc/_header.html" %}
+    {% endcache %}
+  </div>
+
+  <div class="col-md-12">
+    <div class="border-top">
+      <div class="wrapper">
+        {% for message in messages %}
+        {% if message %}
+        <div class="container">
+          {% if message.tags == 'error' %}
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            {{message|safe}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% else %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+            {{message|safe}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+      <div id="login-card" class="card">
+        <div id="login-card-body" class="card-body">
+          <h2 class="text-center">{% block formtitle %} Login form {% endblock %}</h2>
+          {% block formcontent %}
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              {{form.username}}
+            </div>
+            <div class="form-group">
+              {{form.password}}
+            </div>
+            <button type="submit" id="button" class="btn btn-primary btn-block ">Submit</button>
+          </form>
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper">
+    {% cache 120 footer %}
+    {% include "inc/_footer.html" %}
+    {% endcache %}
+  </div>
+</body>
+
+</html>

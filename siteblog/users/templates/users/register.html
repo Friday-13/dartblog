@@ -1,0 +1,52 @@
+{% extends 'base_login.html' %}
+{% load static %}
+{% block formtitle %} {{formtitle}} {%endblock%}
+{% block formcontent %}
+<form method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    {{ form.non_field.errors }}
+  </div>
+
+  {% if form.errors %}
+  <div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div id="form_errors">
+      {% for key, value in form.errors.items %}
+      <strong>{{ value }}</strong>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  <div class="form-group">
+    {{form.username}}
+  </div>
+  <div class="form-group">
+    {{form.email}}
+  </div>
+  <div class="form-group">
+    {{form.password1}}
+  </div>
+  <div class="form-group">
+    {{form.password2}}
+  </div>
+  <div class="form-group">
+    <p>Subscribe for our news?</p>
+    {{form.is_subscribed}}
+  </div>
+  <div class="form-group">
+    {{form.captcha}}
+  </div>
+  <div class="col-md-12">
+    <div class="col-md-6">
+      <h5 id="link"><a id="link" href="{% url 'login' %}">Do you  have an account?</a></h5>
+    </div>
+    <div class="col-md-6">
+      <h5 id="link"><a id="link" href="{% url 'password_reset' %}">Forget your password?</a></h5>
+    </div>
+  </div>
+  <button type="submit" id="button" class="btn btn-primary btn-block ">Submit</button>
+</form>
+{% endblock %}
