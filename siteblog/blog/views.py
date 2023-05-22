@@ -7,7 +7,7 @@ from django.views.generic.edit import FormMixin
 from .models import Comment, Post, Tag, Category
 from users.models import User
 from .forms import CommentForm 
-from django.db.models import F, Q
+from django.db.models import F, Q, QuerySet
 
 
 class Home(ListView):

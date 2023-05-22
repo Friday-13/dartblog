@@ -222,7 +222,7 @@ CACHES = {
 }
 
 
-EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_HOST = os.getenv('SMTP_HOST')
 EMAIL_PORT = 465
 EMAIL_HOST_USER = os.getenv('SMTP_EMAIL')
 EMAIL_HOST_PASSWORD = os.getenv('SMTP_PASS')
